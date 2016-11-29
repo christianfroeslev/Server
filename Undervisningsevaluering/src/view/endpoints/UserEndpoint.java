@@ -25,7 +25,6 @@ public class UserEndpoint {
 
 
     @GET
-    @Consumes("applications/json")
     @Path("/lecture/{code}")
     public Response getLectures(@PathParam("code") String code) {
         Gson gson = new Gson();
@@ -72,7 +71,6 @@ public class UserEndpoint {
     }
 
     @GET
-    @Consumes("applications/json")
     @Path("/review/{lectureId}")
     public Response getReviews(@PathParam("lectureId") int lectureId) {
         Gson gson = new Gson();
@@ -84,6 +82,16 @@ public class UserEndpoint {
         } else {
             return errorResponse(404, "Failed. Couldn't get reviews.");
         }
+    }
+
+    @OPTIONS
+    @Path("/review/{courseId}")
+    public Response optionsReview() {
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .build();
     }
 
 
@@ -117,7 +125,6 @@ public class UserEndpoint {
     }
 
     @POST
-    @Consumes("application/json")
     @Path("/login")
     public Response login(String data) {
 
