@@ -25,11 +25,11 @@ public class UserEndpoint {
 
 
     @GET
-    @Path("/lecture/{code}")
-    public Response getLectures(@PathParam("code") String code) {
+    @Path("/lecture/{name}")
+    public Response getLectures(@PathParam("name") String displaytext) {
         Gson gson = new Gson();
         UserController userCtrl = new UserController();
-        ArrayList<LectureDTO> lectures = userCtrl.getLectures(code);
+        ArrayList<LectureDTO> lectures = userCtrl.getLectures(displaytext);
 
         if (!lectures.isEmpty()) {
             return successResponse(200, lectures);
@@ -85,7 +85,7 @@ public class UserEndpoint {
     }
 
     @OPTIONS
-    @Path("/review/{courseId}")
+    @Path("/review/{lectureId}")
     public Response optionsReview() {
         return Response
                 .status(200)

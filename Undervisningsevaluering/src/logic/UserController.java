@@ -83,14 +83,14 @@ public class UserController {
         return reviews;
     }
 
-    public ArrayList<LectureDTO> getLectures(String code) {
+    public ArrayList<LectureDTO> getLectures(String displaytext) {
 
         ArrayList<LectureDTO> lectures = new ArrayList<LectureDTO>();
 
         try {
             Map<String, String> params = new HashMap();
 
-            params.put("course_id", code);
+            params.put("course_id", displaytext);
 
             ResultSet rs = DBWrapper.getRecords("lecture", null, params, null, 0);
 
