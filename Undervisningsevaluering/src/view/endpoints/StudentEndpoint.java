@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 public class StudentEndpoint extends UserEndpoint {
 
     @POST
-    @Consumes("application/json")
     @Path("/review")
     public Response addReview(String json) {
 
@@ -47,12 +46,13 @@ public class StudentEndpoint extends UserEndpoint {
     }
 
     @DELETE
-    @Path("/review/{userId}/{reviewId}")
-    public Response deleteReview(@PathParam("userId") int userId, @PathParam("reviewId") int reviewId) {
-        Gson gson = new Gson();
+    @Path("/review/delete")
+    public Response deleteReview(String data) {
 
+        Gson gson = new Gson();
         StudentController studentCtrl = new StudentController();
-        boolean isDeleted = studentCtrl.softDeleteReview(userId, reviewId);
+        ReviewDTO review = gson.fromJson(data, ReviewDTO.class);
+        boolean isDeleted = studentCtrl.softDeleteReview(review.getId());
 
         if (isDeleted) {
             String toJson = gson.toJson(Digester.encrypt(gson.toJson(isDeleted)));
