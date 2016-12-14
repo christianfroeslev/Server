@@ -42,7 +42,7 @@ public class StudentController extends UserController {
             values.put("is_deleted", "0");
 
             DBWrapper.insertIntoRecords("review", values);
-           return isAdded;
+            return isAdded;
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package shared;
 
-public class ReviewDTO {
+public class    ReviewDTO {
 
     private int id;
     private int userId;

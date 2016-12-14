@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 public class StudentEndpoint extends UserEndpoint {
 
     @POST
+    @Consumes("application/json")
     @Path("/review")
     public Response addReview(String json) {
 
@@ -37,7 +38,7 @@ public class StudentEndpoint extends UserEndpoint {
 
     @OPTIONS
     @Path("/review")
-    public Response optionsCreateReview() {
+    public Response optionsReview() {
         return Response
                 .status(200)
                 .header("Access-Control-Allow-Origin", "*")
@@ -45,10 +46,21 @@ public class StudentEndpoint extends UserEndpoint {
                 .build();
     }
 
+    @OPTIONS
+    @Path("/review/delete")
+    public Response optionsDeleteReview() {
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .build();
+    }
+
     @DELETE
     @Path("/review/delete")
     public Response deleteReview(String data) {
-
         Gson gson = new Gson();
         StudentController studentCtrl = new StudentController();
         ReviewDTO review = gson.fromJson(data, ReviewDTO.class);

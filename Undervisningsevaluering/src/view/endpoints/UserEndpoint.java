@@ -23,21 +23,6 @@ public class UserEndpoint {
      * @return En JSON String
      */
 
-
-    @GET
-    @Path("/lecture/{name}")
-    public Response getLectures(@PathParam("name") String displaytext) {
-        Gson gson = new Gson();
-        UserController userCtrl = new UserController();
-        ArrayList<LectureDTO> lectures = userCtrl.getLectures(displaytext);
-
-        if (!lectures.isEmpty()) {
-            return successResponse(200, lectures);
-        } else {
-            return errorResponse(404, "Failed. Couldn't get lectures.");
-        }
-    }
-
     @OPTIONS
     @Path("/lecture/{code}")
     public Response optionsGetLectures() {
@@ -46,6 +31,21 @@ public class UserEndpoint {
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "Content-Type")
                 .build();
+    }
+
+
+    @GET
+    @Path("/lecture/{code}")
+    public Response getLectures(@PathParam("code") String code) {
+        Gson gson = new Gson();
+        UserController userCtrl = new UserController();
+        ArrayList<LectureDTO> lectures = userCtrl.getLectures(code);
+
+        if (!lectures.isEmpty()) {
+            return successResponse(200, lectures);
+        } else {
+            return errorResponse(404, "Failed. Couldn't get lectures.");
+        }
     }
 
 
@@ -84,16 +84,6 @@ public class UserEndpoint {
         }
     }
 
-    @OPTIONS
-    @Path("/review/{lectureId}")
-    public Response optionsReview() {
-        return Response
-                .status(200)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "Content-Type")
-                .build();
-    }
-
 
     /**
      *
@@ -124,7 +114,18 @@ public class UserEndpoint {
                 .build();
     }
 
+    @OPTIONS
+    @Path("/review/{lectureId}")
+    public Response optionsReviews() {
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .build();
+    }
+
     @POST
+    @Consumes("application/json")
     @Path("/login")
     public Response login(String data) {
 

@@ -20,13 +20,13 @@ public class TeacherEndpoint extends UserEndpoint {
 
     @OPTIONS
     @Path("/review/delete")
-    public Response optionsDeleteReview() {
+    public Response optionsReview() {
         return Response
                 .status(200)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Headers", "Content-Type")
                 .header("Access-Control-Allow-Methods",
-                "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .build();
     }
 
